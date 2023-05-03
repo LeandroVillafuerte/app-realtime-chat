@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo(1).svg";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { loginRoute } from "../utils/apiRoutes";
@@ -28,7 +28,7 @@ const Login = () => {
         password,
       });
       localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-      // toast.info(data.msg);
+      toast.info(data.msg);
       navigate("/");
     } catch (e) {
       toast.error(e.response.data.msg, toastOptions);
@@ -84,7 +84,6 @@ const Login = () => {
           </button>
         </form>
       </FormContainer>
-      <ToastContainer />
     </>
   );
 };

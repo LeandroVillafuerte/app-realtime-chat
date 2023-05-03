@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo(1).svg";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { registerRoute } from "../utils/apiRoutes";
@@ -24,17 +24,17 @@ const Register = () => {
     e.preventDefault();
     if (!handleValidationErrors()) return false;
     const { username, email, password } = infoForm;
-    try{
-    const { data } = await axios.post(registerRoute, {
-      username,
-      password,
-      email,
-    });
-        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-        // toast.info(data.msg);
-        navigate("/");
-    } catch(e){
-            toast.error(e.response.data.msg, toastOptions);
+    try {
+      const { data } = await axios.post(registerRoute, {
+        username,
+        password,
+        email,
+      });
+      localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+      // toast.info(data.msg);
+      navigate("/");
+    } catch (e) {
+      toast.error(e.response.data.msg, toastOptions);
     }
   };
   const handleChange = (e) => {
@@ -103,7 +103,6 @@ const Register = () => {
           </span>
         </form>
       </FormContainer>
-      <ToastContainer />
     </>
   );
 };
