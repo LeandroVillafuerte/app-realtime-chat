@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { allUsersRoute } from "../utils/apiRoutes";
+import { allUsersRoute, host } from "../utils/apiRoutes";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import ChatContainer from "../components/ChatContainer";
+import { io } from "socket.io-client";
 
 const Chat = () => {
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [currentChat, setCurrentChat] = useState();
   const navigate = useNavigate();
+  const socket = useRef();
 
   //TODO pasar el user por props desde arriba.
   useEffect(() => {
@@ -32,6 +34,13 @@ const Chat = () => {
       };
     }
   }, [navigate]);
+
+  useEffect(() => {
+    if (currentUser) {
+      socket.current = io(host);
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (currentUser) {
@@ -73,7 +82,11 @@ const Chat = () => {
           ""
         )}
         {currentChat ? (
-          <ChatContainer currentChat={currentChat} currentUser={currentUser} />
+          <ChatContainer
+            currentChat={currentChat}
+            currentUser={currentUser}
+            socket={socket}
+          />
         ) : (
           <Welcome currentUser={currentUser} />
         )}

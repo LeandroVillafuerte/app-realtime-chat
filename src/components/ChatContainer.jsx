@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Logout from "./Logout";
 import ChatInput from "./ChatInput";
@@ -6,8 +6,10 @@ import Messages from "./Messages";
 import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../utils/apiRoutes";
 
-const ChatContainer = ({ currentChat, currentUser }) => {
+const ChatContainer = ({ currentChat, currentUser, socket }) => {
   const [messages, setMessages] = useState([]);
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const scrollRef = useRef();
   useEffect(() => {
     async function getMessages() {
       const response = await axios.get(
@@ -17,8 +19,11 @@ const ChatContainer = ({ currentChat, currentUser }) => {
         setMessages(response.data.projectMessages);
       }
     }
-    getMessages();
+    if (currentChat) {
+      getMessages();
+    }
     let ignore = false;
+
     return () => {
       ignore = true;
       setMessages([]);
@@ -31,7 +36,31 @@ const ChatContainer = ({ currentChat, currentUser }) => {
       to: currentChat._id,
       message: msg,
     });
+    socket.current.emit("send-msg", {
+      to: currentChat._id,
+      from: currentUser._id,
+      message: msg,
+    });
+    const msgs = [...messages];
+    msg.push({ fromSelf: true, message: msg });
+    setMessages(msgs);
   };
+
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-receive", (msg) => {
+        setArrivalMessage({ fromSelf: false, message: msg });
+      });
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
+  }, [messages]);
   return (
     <Container>
       {currentChat ? (
@@ -121,8 +150,8 @@ const Container = styled.div`
         max-width: 40%;
         overflow-wrap: break-word;
         padding: 1rem;
-        font-size:1.1rem;
-        border-radius:1rem;
+        font-size: 1.1rem;
+        border-radius: 1rem;
         color: #d1d1d1;
       }
     }
