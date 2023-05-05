@@ -73,7 +73,7 @@ const Chat = () => {
           ""
         )}
         {currentChat ? (
-          <ChatContainer currentChat={currentChat} />
+          <ChatContainer currentChat={currentChat} currentUser={currentUser} />
         ) : (
           <Welcome currentUser={currentUser} />
         )}
