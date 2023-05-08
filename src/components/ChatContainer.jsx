@@ -2,9 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Logout from "./Logout";
 import ChatInput from "./ChatInput";
-import Messages from "./Messages";
+// import Messages from "./Messages";
 import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../utils/apiRoutes";
+import {v4 as uuidv4} from 'uuid'
 
 const ChatContainer = ({ currentChat, currentUser, socket }) => {
   const [messages, setMessages] = useState([]);
@@ -42,7 +43,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
       message: msg,
     });
     const msgs = [...messages];
-    msg.push({ fromSelf: true, message: msg });
+    msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
   };
 
@@ -81,7 +82,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
           </div>
           <div className="chat-messages">
             {messages.map((message, i) => (
-              <div key={"message" + i}>
+              <div ref={scrollRef} key={uuidv4()}>
                 <div
                   className={`message ${
                     message.fromSelf ? "sended" : "received"
@@ -143,6 +144,14 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    &::-webkit-scrollbar{
+      width:0.2rem;
+      &-thumb{
+        background-color:#ffffff39;
+        width:0.1rem;
+        border-radius:1rem;
+      }
+    }
     .message {
       display: flex;
       align-items: center;
@@ -163,7 +172,9 @@ const Container = styled.div`
     }
     .received {
       justify-content: flex-start;
+      .content {
       background-color: #9900ff20;
+      }
     }
   }
 `;
