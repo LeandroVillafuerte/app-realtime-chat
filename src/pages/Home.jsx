@@ -12,12 +12,14 @@ const Home = ({ currentUser }) => {
           <h1>Chatify</h1>
           <LogoSVG />
         </section>
-        <section className="options">
+        <section className="description">
           <article>
             Welcome to my personal project! Feel free to contact me for any
             suggestion :)
           </article>
           <article>Start creating an account and adding contacts.</article>
+        </section>
+        <section className="options">
           <ButtonLink to="/about">About 🙋🏻‍♂️</ButtonLink>
           {!currentUser && (
             <>
@@ -25,9 +27,13 @@ const Home = ({ currentUser }) => {
               <ButtonLink to="/register">Register 📝</ButtonLink>
             </>
           )}
-          {currentUser &&<><ButtonLink to="/chat">Go to chat ✨</ButtonLink><ButtonLink to="/setavatar">profile img 🖼</ButtonLink></>
-          }
-          {currentUser && <Logout />}
+          {currentUser && (
+            <>
+              <ButtonLink to="/chat">Go to chat ✨</ButtonLink>
+              <ButtonLink to="/setavatar">profile img 🖼</ButtonLink>
+            </>
+          )}
+          {currentUser && <Logout type="button"/>}
         </section>
       </section>
     </Container>
@@ -35,18 +41,18 @@ const Home = ({ currentUser }) => {
 };
 
 const Container = styled.div`
-  background-color: #080420;
+  background-color: var(--background-primary-color);
   height: 100vh;
   width: 100vw;
   color: var(--white-font);
   display: flex;
   justify-content: center;
+  align-items: center;
   .content {
-    gap: 2rem;
-    background-color: #00000076;
+    height: fit-content;
+    background-color: var(--page-container-color);
     border-radius: 2rem;
     padding: 3rem 5rem;
-    margin: 2rem 2rem;
   }
   .brand {
     display: flex;
@@ -56,6 +62,16 @@ const Container = styled.div`
     svg {
       height: 5rem;
     }
+    h1{
+      font-size:2rem;
+    }
+  }
+  .description{
+    display:flex;
+    flex-direction:column;
+    gap: 1rem;
+    margin-bottom:2rem;
+
   }
   .options {
     display: flex;

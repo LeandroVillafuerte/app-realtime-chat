@@ -11,9 +11,12 @@ const ButtonLink = ({ to, children }) => {
 };
 
 const Container = styled.button`
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background-color: var(--button-primary-color);
   color: var(--white-font);
-  padding: 1rem 2rem;
+
   border: none;
   font-weight: bold;
   cursor: pointer;
@@ -29,7 +32,10 @@ const Container = styled.button`
     color: var(--white-font);
   }
   a {
-    color: var(--border-and-hover-color);
+    width:100%;
+    height:100&;
+    padding: 1rem 2rem;
+    color: var(--white-font);
     text-decoration: none;
     font-weight: bold;
   }

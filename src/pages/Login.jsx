@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { loginRoute } from "../utils/apiRoutes";
+import ButtonBack from "../components/ButtonBack";
 
 const Login = ({ setCurrentUser }) => {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ const Login = ({ setCurrentUser }) => {
     <>
       <FormContainer>
         <form onSubmit={(e) => handleSubmit(e)}>
+          <ButtonBack />
           <div className="brand">
             <Logo className="img" />
             <h1>Chatify</h1>
@@ -98,6 +100,11 @@ const FormContainer = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: var(--background-primary-color);
+  .back {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+  }
   .brand {
     display: flex;
     align-items: center;
@@ -118,6 +125,7 @@ const FormContainer = styled.div`
     background-color: var(--page-container-color);
     border-radius: 2rem;
     padding: 3rem 5rem;
+    position: relative;
     input {
       background-color: transparent;
       padding: 1rem;

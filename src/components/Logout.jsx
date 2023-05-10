@@ -3,19 +3,33 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BiPowerOff } from "react-icons/bi";
 import { CurrentUserContext } from "../App";
+import ButtonLink from "./ButtonLink";
 
-const Logout = () => {
+const Logout = ({ type }) => {
   const { setCurrentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const handleClick = async () => {
     localStorage.clear();
-    setCurrentUser(null)
+    setCurrentUser(null);
     navigate("/");
   };
   return (
-    <Button onClick={handleClick}>
-      <BiPowerOff />
-    </Button>
+    <>
+      {type === "icon" && (
+        <Button onClick={handleClick}>
+          <BiPowerOff />
+        </Button>
+      )}
+      {
+        type === "button" && (
+          <ButtonLink  to="/">
+            <span onClick={handleClick} style={{display:"flex", gap:"0.2rem", alignItems:"center",justifyContent:"center"}}>
+            Log out <BiPowerOff style={{fontSize:"1.3rem",color:"var(--font-white)"}} />
+            </span>
+          </ButtonLink>
+        )
+      }
+    </>
   );
 };
 
@@ -30,7 +44,7 @@ const Button = styled.button`
   cursor: pointer;
   svg {
     font-size: 1.3rem;
-    color: #ebe7ff;
+    color: var(--white-font);
   }
 `;
 

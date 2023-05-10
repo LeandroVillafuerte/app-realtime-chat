@@ -55,7 +55,7 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: var(--chat-bubble-contact);
+        background-color: var(--chat-bubble-send);
       }
     }
     .received {

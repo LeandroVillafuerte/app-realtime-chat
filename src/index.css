@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-    --background-primary-color: #183414;
-    --primary-color:#550C18;
+    --background-primary-color: #23272f;
+    --primary-color:#420912;
     --white-font: #E8E9ED;
     --font-color: #fa070700;
-    --chat-bubble-contact: #7983f2;
-    --chat-bubble-received: #7983f2;
-    --chat-container-color:#671e98;
-    --border-and-hover-color: #798bf2;
-    --page-container-color: #806305;
-    --button-primary-color:#cc79f2;
+    --chat-bubble-send: #1363DF;
+    --chat-bubble-received: #088395;
+    --chat-container-color:#471b38;
+    --border-and-hover-color: #29BB89;
+    --page-container-color: #321327;
+    --button-primary-color:#289672;
 }
 
 *{

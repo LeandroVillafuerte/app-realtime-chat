@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import EmojiPicker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
-import { BsEmojiSmileFill } from "react-icons/bs";
-// import { Theme } from 'emoji-picker-react';
 
 const ChatInput = ({ handleSendMsg }) => {
+  const wrapperRef = useRef(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowEmojiPicker(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
   const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -25,11 +42,12 @@ const ChatInput = ({ handleSendMsg }) => {
     }
   };
 
+  useOutsideAlerter(wrapperRef);
   return (
     <Container>
       <div className="button-container">
-        <div className="emoji">
-          <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
+        <div ref={wrapperRef} className="emoji-container">
+          <div className="emoji" onClick={handleEmojiPickerHideShow}>😃</div>
           {showEmojiPicker && (
             <EmojiPicker Theme="dark" onEmojiClick={handleEmojiClick} />
           )}
@@ -38,7 +56,7 @@ const ChatInput = ({ handleSendMsg }) => {
       <form className="input-container" onSubmit={(e) => sendChat(e)}>
         <input
           type="text"
-          placeholder="type your message here."
+          placeholder="Type your message here..."
           value={msg}
           onClick={() => setShowEmojiPicker(false)}
           onChange={(e) => setMsg(e.target.value)}
@@ -56,7 +74,7 @@ const Container = styled.div`
   grid-template-columns: 5% 95%;
   align-items: center;
   background-color: var(--page-container-color);
-  padding: 0 2rem;
+  padding: 0.1rem 2rem 0.1rem 0.5rem;
   padding-bottom: 0.3rem;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
@@ -67,11 +85,10 @@ const Container = styled.div`
     align-items: center;
     color: var(--white-font);
     gap: 1rem;
-    .emoji {
+    .emoji-container {
       position: relative;
-      svg {
+      .emoji {
         font-size: 1.5rem;
-        color: #ffd225;
         cursor: pointer;
       }
       .EmojiPickerReact.epr-dark-theme {
@@ -99,10 +116,11 @@ const Container = styled.div`
     border-radius: 2rem;
     display: flex;
     gap: 2rem;
-    background-color: #ffffff34;
     input {
+      background-color: #ffffff34;
       width: 90%;
-      background-color: transparent;
+      /* background-color: transparent; */
+      border-radius: 2rem;
       color: var(--white-font);
       border: none;
       padding-left: 1rem;
@@ -115,7 +133,8 @@ const Container = styled.div`
       }
     }
     button {
-      padding: 0.3rem 2rem;
+      cursor: pointer;
+      padding: 0.3rem 1rem;
       border-radius: 2rem;
       display: flex;
       justify-content: center;

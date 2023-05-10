@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { setAvatarRoute } from "../utils/apiRoutes";
+import ButtonBack from "../components/ButtonBack";
 
 const SetAvatar = () => {
   const navigate = useNavigate();
@@ -65,7 +66,8 @@ const SetAvatar = () => {
         {isLoading ? (
           <img src={loader} alt="loader" className="loader" />
         ) : (
-          <>
+          <div className="content">
+            <ButtonBack className="back"/>
             <div className="title-container">
               <h1>Pick an avatar as your profile picture</h1>
             </div>
@@ -90,7 +92,7 @@ const SetAvatar = () => {
             <button className="submit-btn" onClick={setProfilePicture}>
               Set as Profile Picture
             </button>
-          </>
+          </div>
         )}
         ;
       </Container>
@@ -109,6 +111,23 @@ const Container = styled.div`
   background-color: var(--background-primary-color);
   height: 100vh;
   width: 100vw;
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    background-color: var(--page-container-color);
+    border-radius: 2rem;
+    padding: 3rem 5rem;
+    position: relative;
+    .back{
+      position:absolute;
+      top:2rem;
+      left:2rem;
+
+    }
+  }
   .loader {
     max-inline-size: 100%;
   }

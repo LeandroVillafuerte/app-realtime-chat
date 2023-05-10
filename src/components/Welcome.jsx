@@ -2,14 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "./LogoSVG";
 
-const Welcome = ({ currentUser }) => {
+const Welcome = () => {
   return (
     <Container>
       <Logo className="logo"/>{" "}
-      <h1>
-        Welcome, <span>{currentUser?.username}!</span>
-      </h1>
-      <h3>Please select a chat.</h3>
+      <h3>Select a contact to start chatting.</h3>
     </Container>
   );
 };
