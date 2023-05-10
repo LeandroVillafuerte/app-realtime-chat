@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Logout from "../components/Logout";
 import LogoSVG from "../components/LogoSVG";
 import ButtonLink from "../components/ButtonLink";
+import {IoChatboxEllipsesOutline} from 'react-icons/io5'
+import { RxAvatar } from "react-icons/rx";
 
 const Home = ({ currentUser }) => {
   return (
@@ -29,8 +31,8 @@ const Home = ({ currentUser }) => {
           )}
           {currentUser && (
             <>
-              <ButtonLink to="/chat">Go to chat ✨</ButtonLink>
-              <ButtonLink to="/setavatar">profile img 🖼</ButtonLink>
+              <ButtonLink to="/chat"><span>Go to chat</span> <span><IoChatboxEllipsesOutline/></span></ButtonLink>
+              <ButtonLink to="/setavatar"><span>Profile Img</span><span><RxAvatar/></span></ButtonLink>
             </>
           )}
           {currentUser && <Logout type="button"/>}
@@ -79,6 +81,18 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
   }
+  button{
+    a{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    gap: 0.5rem;
+    svg{
+    font-size:1.2rem;
+    }
+  }
+}
 `;
 
 export default Home;
