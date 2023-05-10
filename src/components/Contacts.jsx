@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../assets/logo(1).svg";
+import Logo from "./LogoSVG";
 
 const Contacts = ({ contacts, currentUser, changeChat }) => {
-  const [currentUserName, setCurrentUserName] = useState(currentUser.username);
-  const [currentUserImage, setCurrentUserImage] = useState(
-    currentUser.avatarImage
-  );
   const [currentSelected, setCurrentSelected] = useState();
+  const currentUserName = currentUser.username;
+  const currentUserImage = currentUser.avatarImage;
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
@@ -19,8 +17,8 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
       {currentUserImage && currentUserName && (
         <Container>
           <div className="brand">
-            <img src={logo} alt="logo" />
-            <h3>Snappy</h3>
+            <Logo className="logo"/>
+            <h3>Chatify</h3>
           </div>
           <div className="contacts">
             {contacts?.map((contact, index) => {
@@ -66,17 +64,17 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #080420;
+  background-color: var(--page-container-color);
   .brand {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    img {
+    .logo {
       height: 2rem;
     }
     h3 {
-      color: white;
+      color: var(--white-font);
       text-transform: uppercase;
     }
   }
@@ -112,16 +110,16 @@ const Container = styled.div`
       }
       .username {
         h3 {
-          color: white;
+          color: var(--white-font);
         }
       }
     }
     .selected {
-      background-color: #9186f3;
+      background-color: var(--border-and-hover-color);
     }
   }
   .current-user {
-    background-color: #0d0d30;
+    background-color: var(--primary-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,7 +132,7 @@ const Container = styled.div`
     }
     .username {
       h2 {
-        color: white;
+        color: var(--white-font);
       }
     }
     @media screen and (max-width: 1080px) {

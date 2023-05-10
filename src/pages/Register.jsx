@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../assets/logo(1).svg";
+import Logo from "../components/LogoSVG";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -70,8 +70,8 @@ const Register = () => {
       <FormContainer>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="brand">
-            <img src={Logo} alt="Logo" />
-            <h1>snappy</h1>
+            <Logo className="logo" />
+            <h1>Chatify</h1>
           </div>
           <input
             type="text"
@@ -115,17 +115,17 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: var(--background-primary-color);
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
-    img {
+    .logo {
       height: 5rem;
     }
     h1 {
-      color: white;
+      color: var(--white-font);
       text-transform: uppercase;
     }
   }
@@ -133,24 +133,24 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    background-color: #00000076;
+    background-color: var(--page-container-color);
     border-radius: 2rem;
     padding: 3rem 5rem;
     input {
       background-color: transparent;
       padding: 1rem;
-      border: 0.1rem solid #4e0eff;
-      color: white;
+      border: 0.1rem solid var(--border-and-hover-color);
+      color: var(--white-font);
       width: 100%;
       font-size: 1rem;
       &:focus {
-        border: 0.1rem solid #997af0;
+        border: 0.1rem solid var(--button-primary-color);
         outline: none;
       }
     }
     button {
-      background-color: #997af0;
-      color: white;
+      background-color: var(--button-primary-color);
+      color: var(--white-font);
       padding: 1rem 2rem;
       border: none;
       font-weight: bold;
@@ -160,15 +160,15 @@ const FormContainer = styled.div`
       text-transform: uppercase;
       transition: 0.5s ease-in-out;
       &:hover {
-        background-color: #4e0eff;
+        background-color: var(--border-and-hover-color);
       }
     }
     span {
-      color: white;
+      color: var(--white-font);
       /* text-transform:uppercase; */
     }
     a {
-      color: #4e0eff;
+      color: var(--border-and-hover-color);
       text-decoration: none;
       font-weight: bold;
     }

@@ -2,15 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Logout from "./Logout";
 import ChatInput from "./ChatInput";
-// import Messages from "./Messages";
 import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../utils/apiRoutes";
-import {v4 as uuidv4} from 'uuid'
+import Messages from "./Messages";
 
 const ChatContainer = ({ currentChat, currentUser, socket }) => {
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const scrollRef = useRef();
+
   useEffect(() => {
     async function getMessages() {
       const response = await axios.get(
@@ -80,22 +80,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
             </div>
             <Logout />
           </div>
-          <div className="chat-messages">
-            {messages.map((message, i) => (
-              <div ref={scrollRef} key={uuidv4()}>
-                <div
-                  className={`message ${
-                    message.fromSelf ? "sended" : "received"
-                  }`}
-                >
-                  <div className="content">
-                    <p>{message.message}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* <Messages /> */}
+          <Messages messages={messages} scrollRef={scrollRef}/>
           <ChatInput handleSendMsg={handleSendMsg} />
         </>
       ) : (
@@ -133,47 +118,8 @@ const Container = styled.div`
       }
       .username {
         h3 {
-          color: white;
+          color: var(--white-font);
         }
-      }
-    }
-  }
-  .chat-messages {
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow: auto;
-    &::-webkit-scrollbar{
-      width:0.2rem;
-      &-thumb{
-        background-color:#ffffff39;
-        width:0.1rem;
-        border-radius:1rem;
-      }
-    }
-    .message {
-      display: flex;
-      align-items: center;
-      .content {
-        max-width: 40%;
-        overflow-wrap: break-word;
-        padding: 1rem;
-        font-size: 1.1rem;
-        border-radius: 1rem;
-        color: #d1d1d1;
-      }
-    }
-    .sended {
-      justify-content: flex-end;
-      .content {
-        background-color: #4f04ff21;
-      }
-    }
-    .received {
-      justify-content: flex-start;
-      .content {
-      background-color: #9900ff20;
       }
     }
   }

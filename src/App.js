@@ -1,24 +1,65 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Register from './pages/Register'
-import Login from './pages/Login'
-import Chat from './pages/Chat'
-import SetAvatar from './pages/SetAvatar'
-import { ToastContainer } from 'react-toastify'
+import React, { useEffect, useState, createContext } from "react";
+import { Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Chat from "./pages/Chat";
+import SetAvatar from "./pages/SetAvatar";
+import Home from "./pages/Home";
+import { ToastContainer } from "react-toastify";
+
+export const CurrentUserContext = createContext(null);
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      async function getCurrentUser() {
+        setCurrentUser(null);
+        const user = await JSON.parse(localStorage.getItem("chat-app-user"));
+        if (!ignore) {
+          setCurrentUser(user);
+        }
+      }
+      let ignore = false;
+      getCurrentUser();
+      return () => {
+        ignore = true;
+      };
+    } else {
+      setCurrentUser(null);
+    }
+  }, []);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/setAvatar' element={<SetAvatar/>}/>
-        <Route path='/' element={<Chat/>}/>
-        <Route path="*" element={<div>Not Found</div>}/>
-      </Routes>
+    <>
+      <CurrentUserContext.Provider
+        value={{
+          currentUser,
+          setCurrentUser,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Home currentUser={currentUser} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
+          <Route path="/setAvatar" element={<SetAvatar />} />
+          <Route path="/chat" element={<Chat currentUser={currentUser} />} />
+          <Route path="*" element={<div>Not Found</div>} />
+        </Routes>
+      </CurrentUserContext.Provider>
       <ToastContainer />
-    </BrowserRouter>
-  )
-}
 
-export default App
+      <footer
+        style={{
+          position: "absolute",
+          bottom: "1rem",
+          right: "1rem",
+          color: "dimgrey",
+        }}
+      >
+        Leandro M. Villafuerte 2023
+      </footer>
+    </>
+  );
+};
+
+export default App;

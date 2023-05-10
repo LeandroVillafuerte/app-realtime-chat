@@ -106,7 +106,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 3rem;
-  background-color: #131324;
+  background-color: var(--background-primary-color);
   height: 100vh;
   width: 100vw;
   .loader {
@@ -114,7 +114,7 @@ const Container = styled.div`
   }
   .title-container {
     h1 {
-      color: white;
+      color: var(--white-font);
     }
   }
   .avatars {
@@ -134,12 +134,12 @@ const Container = styled.div`
       }
     }
     .selected {
-      border: 0.4rem solid #4e0eff;
+      border: 0.4rem solid var(--border-and-hover-color);
     }
   }
   button {
-    background-color: #997af0;
-    color: white;
+    background-color: var(--button-primary-color);
+    color: var(--white-font);
     padding: 1rem 2rem;
     border: none;
     font-weight: bold;
@@ -148,7 +148,7 @@ const Container = styled.div`
     font-size: 1rem;
     transition: 0.5s ease-in-out;
     &:hover {
-      background-color: #4e0eff;
+      background-color: var(--border-and-hover-color);
     }
   }
 `;
