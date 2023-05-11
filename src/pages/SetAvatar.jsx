@@ -8,7 +8,7 @@ import axios from "axios";
 import { setAvatarRoute } from "../utils/apiRoutes";
 import ButtonBack from "../components/ButtonBack";
 
-const SetAvatar = () => {
+const SetAvatar = ({ setCurrentUser }) => {
   const navigate = useNavigate();
   const [avatars, setAvatars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +31,7 @@ const SetAvatar = () => {
         user.isAvatarImageSet = true;
         user.avatarImage = data.avatarImage;
         localStorage.setItem("chat-app-user", JSON.stringify(user));
+        setCurrentUser(user);
         toast.success("Avatar image updated.", toastOptions);
         navigate("/");
       } else {
@@ -67,7 +68,7 @@ const SetAvatar = () => {
           <img src={loader} alt="loader" className="loader" />
         ) : (
           <div className="content">
-            <ButtonBack className="back"/>
+            <ButtonBack className="back" />
             <div className="title-container">
               <h1>Pick an avatar as your profile picture</h1>
             </div>
@@ -121,11 +122,10 @@ const Container = styled.div`
     border-radius: 2rem;
     padding: 3rem 5rem;
     position: relative;
-    .back{
-      position:absolute;
-      top:2rem;
-      left:2rem;
-
+    .back {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
     }
   }
   .loader {

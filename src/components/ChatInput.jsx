@@ -3,10 +3,14 @@ import styled from "styled-components";
 import EmojiPicker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
 
-const ChatInput = ({ handleSendMsg }) => {
+const ChatInput = ({ handleSendMsg, currentChat }) => {
   const wrapperRef = useRef(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
+
+  useEffect(() => {
+    setMsg("");
+  }, [currentChat]);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -47,7 +51,9 @@ const ChatInput = ({ handleSendMsg }) => {
     <Container>
       <div className="button-container">
         <div ref={wrapperRef} className="emoji-container">
-          <div className="emoji" onClick={handleEmojiPickerHideShow}>😃</div>
+          <div className="emoji" onClick={handleEmojiPickerHideShow}>
+            😃
+          </div>
           {showEmojiPicker && (
             <EmojiPicker Theme="dark" onEmojiClick={handleEmojiClick} />
           )}

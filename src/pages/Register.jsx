@@ -8,7 +8,7 @@ import axios from "axios";
 import { registerRoute } from "../utils/apiRoutes";
 import ButtonBack from "../components/ButtonBack";
 
-const Register = () => {
+const Register = ({ setCurrentUser }) => {
   const navigate = useNavigate();
   const [infoForm, setInfoForm] = useState({
     username: "",
@@ -32,7 +32,7 @@ const Register = () => {
         email,
       });
       localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-      // toast.info(data.msg);
+      setCurrentUser(data.user);
       navigate("/");
     } catch (e) {
       toast.error(e.response.data.msg, toastOptions);
@@ -70,7 +70,7 @@ const Register = () => {
     <>
       <FormContainer>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <ButtonBack className="back"/>
+          <ButtonBack className="back" />
           <div className="brand">
             <Logo className="logo" />
             <h1>Chatify</h1>
@@ -118,10 +118,10 @@ const FormContainer = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: var(--background-primary-color);
-  .back{
-    position:absolute;
-    right:2rem;
-    left:2rem;
+  .back {
+    position: absolute;
+    right: 2rem;
+    left: 2rem;
   }
   .brand {
     display: flex;
@@ -143,7 +143,7 @@ const FormContainer = styled.div`
     background-color: var(--page-container-color);
     border-radius: 2rem;
     padding: 3rem 5rem;
-    position:relative;
+    position: relative;
     input {
       background-color: transparent;
       padding: 1rem;

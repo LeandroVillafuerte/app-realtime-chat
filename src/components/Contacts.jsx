@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "./LogoSVG";
 import { useNavigate } from "react-router-dom";
@@ -9,13 +9,28 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { addContactRoute } from "../utils/apiRoutes";
 
-const Contacts = ({ contacts, currentUser, changeChat }) => {
+const Contacts = ({
+  contacts,
+  currentUser,
+  changeChat,
+  getContacts,
+  socket,
+  setContacts,
+}) => {
   const navigate = useNavigate();
   const [currentSelected, setCurrentSelected] = useState();
   const currentUserName = currentUser.username;
   const currentUserImage = currentUser.avatarImage;
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [addUserInput, setAddUserInput] = useState("");
+
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("contact-receive", (contact) => {
+        setContacts([...contacts, contact]);
+      });
+    }
+  }, [socket, contacts, setContacts]);
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
@@ -24,15 +39,22 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    setAddUserInput(e.target.value)
+    setAddUserInput(e.target.value);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!handleValidationErrors()) return false;
     try {
-    const { data } = await axios.post(addContactRoute, {
-        newContact:addUserInput,
+      const { data } = await axios.post(addContactRoute, {
+        currentUserId: currentUser._id,
+        newContact: addUserInput,
       });
+      socket.current.emit("contact-added", {
+        to: data.updatedContact._id,
+        from: currentUser._id,
+        contact: data.updatedUser,
+      });
+      setContacts([...contacts, data.updatedContact]);
       setIsModalOpen(false);
       toast.info(data.msg);
     } catch (e) {
@@ -46,7 +68,6 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
     pauseOnHover: true,
     theme: "dark",
   };
-
 
   const handleValidationErrors = () => {
     if (addUserInput === "") {
@@ -76,7 +97,10 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
             </span>
           </div>
           <div className="add-contact">
-            <button className="add-contact-btn" onClick={()=>setIsModalOpen(true)}>
+            <button
+              className="add-contact-btn"
+              onClick={() => setIsModalOpen(true)}
+            >
               <span>
                 Add Contact <IoMdPersonAdd />
               </span>
@@ -86,13 +110,11 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
                 title="Add user"
                 actionBtnLabel="Add user"
                 setIsOpen={setIsModalOpen}
-                handleSubmit = {handleSubmit}
+                handleSubmit={handleSubmit}
                 form={"adduser"}
               >
                 <form id="adduser" onSubmit={(e) => handleSubmit(e)}>
-                  <p>
-                    Please type the username or email of your new contact.
-                  </p>
+                  <p>Please type the username or email of your new contact.</p>
                   <input
                     type="text"
                     placeholder="username or email..."
@@ -271,13 +293,13 @@ const Container = styled.div`
     }
   }
 
-  form{
+  form {
     display: flex;
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     gap: 2rem;
     padding: 0 1rem;
-    input{
+    input {
       background-color: rgba(0, 0, 0, 0.2);
       padding: 1rem;
       border: 0.1rem solid var(--border-and-hover-color);

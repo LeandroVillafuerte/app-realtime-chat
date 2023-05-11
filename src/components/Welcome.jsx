@@ -2,11 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "./LogoSVG";
 
-const Welcome = () => {
+const Welcome = ({hasContact}) => {
   return (
     <Container>
-      <Logo className="logo"/>{" "}
-      <h3>Select a contact to start chatting.</h3>
+      <Logo className="logo" />{" "}
+      {hasContact ? (
+        <h3>Select a contact to start chatting.</h3>
+      ) : (
+        <h3>Add a new contact to start chatting</h3>
+      )}
     </Container>
   );
 };

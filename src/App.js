@@ -39,9 +39,9 @@ const App = () => {
       >
         <Routes>
           <Route path="/" element={<Home currentUser={currentUser} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register setCurrentUser={setCurrentUser}/>} />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-          <Route path="/setAvatar" element={<SetAvatar />} />
+          <Route path="/setAvatar" element={<SetAvatar setCurrentUser={setCurrentUser} />} />
           <Route path="/chat" element={<Chat currentUser={currentUser} />} />
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>

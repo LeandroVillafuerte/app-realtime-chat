@@ -30,6 +30,12 @@ const Chat = ({ currentUser }) => {
     }
   }, [currentUser]);
 
+  async function getContacts() {
+    setContacts([]);
+    const contactsDB = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+    setContacts(contactsDB.data.users);
+  }
+
   useEffect(() => {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
@@ -72,6 +78,9 @@ const Chat = ({ currentUser }) => {
               contacts={contacts}
               currentUser={currentUser}
               changeChat={handleChatChange}
+              getContacts={getContacts}
+              setContacts={setContacts}
+              socket={socket}
             />
           ) : (
             ""
@@ -83,7 +92,7 @@ const Chat = ({ currentUser }) => {
               socket={socket}
             />
           ) : (
-            <Welcome currentUser={currentUser} />
+            <Welcome hasContacts={contacts.length > 0 ? true : false} />
           )}
         </div>
       </Container>

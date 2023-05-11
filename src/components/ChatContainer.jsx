@@ -80,8 +80,8 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
             </div>
             <Logout />
           </div>
-          <Messages messages={messages} scrollRef={scrollRef}/>
-          <ChatInput handleSendMsg={handleSendMsg} />
+          <Messages messages={messages} scrollRef={scrollRef} currentChat={currentChat}/>
+          <ChatInput currentChat={currentChat} handleSendMsg={handleSendMsg} />
         </>
       ) : (
         ""
