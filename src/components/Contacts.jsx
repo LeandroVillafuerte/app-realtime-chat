@@ -4,16 +4,56 @@ import Logo from "./LogoSVG";
 import { useNavigate } from "react-router-dom";
 import { IoMdPersonAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { addContactRoute } from "../utils/apiRoutes";
 
 const Contacts = ({ contacts, currentUser, changeChat }) => {
   const navigate = useNavigate();
   const [currentSelected, setCurrentSelected] = useState();
   const currentUserName = currentUser.username;
   const currentUserImage = currentUser.avatarImage;
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [addUserInput, setAddUserInput] = useState("");
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setAddUserInput(e.target.value)
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!handleValidationErrors()) return false;
+    try {
+    const { data } = await axios.post(addContactRoute, {
+        newContact:addUserInput,
+      });
+      setIsModalOpen(false);
+      toast.info(data.msg);
+    } catch (e) {
+      toast.error(e.response.data.msg, toastOptions);
+    }
+  };
+
+  const toastOptions = {
+    position: "top-right",
+    autoClose: 7500,
+    pauseOnHover: true,
+    theme: "dark",
+  };
+
+
+  const handleValidationErrors = () => {
+    if (addUserInput === "") {
+      toast.error("Username or Email is required.", toastOptions);
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -36,11 +76,33 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
             </span>
           </div>
           <div className="add-contact">
-            <button>
+            <button className="add-contact-btn" onClick={()=>setIsModalOpen(true)}>
               <span>
                 Add Contact <IoMdPersonAdd />
               </span>
             </button>
+            {isModalOpen && (
+              <Modal
+                title="Add user"
+                actionBtnLabel="Add user"
+                setIsOpen={setIsModalOpen}
+                handleSubmit = {handleSubmit}
+                form={"adduser"}
+              >
+                <form id="adduser" onSubmit={(e) => handleSubmit(e)}>
+                  <p>
+                    Please type the username or email of your new contact.
+                  </p>
+                  <input
+                    type="text"
+                    placeholder="username or email..."
+                    name="username-email"
+                    min="3"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </form>
+              </Modal>
+            )}
           </div>
           <div className="contacts">
             {contacts?.map((contact, index) => {
@@ -126,7 +188,7 @@ const Container = styled.div`
     justify-content: center;
     padding: 2rem;
     max-height: 10%;
-    button {
+    button.add-contact-btn {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -206,6 +268,26 @@ const Container = styled.div`
     h3 {
       color: var(--white-font);
       text-transform: uppercase;
+    }
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    gap: 2rem;
+    padding: 0 1rem;
+    input{
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      border: 0.1rem solid var(--border-and-hover-color);
+      color: var(--white-font);
+      width: 100%;
+      font-size: 1rem;
+      &:focus {
+        border: 0.1rem solid var(--button-primary-color);
+        outline: none;
+      }
     }
   }
 `;

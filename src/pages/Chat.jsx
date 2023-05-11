@@ -58,34 +58,36 @@ const Chat = ({ currentUser }) => {
   };
 
   return (
-    <Container>
-      <div className="container">
-        <span className="home">
-          <Link to="/">
-            <AiFillHome/>
-          </Link>
-          <Logout type="icon" />
-        </span>
-        {currentUser ? (
-          <Contacts
-            contacts={contacts}
-            currentUser={currentUser}
-            changeChat={handleChatChange}
-          />
-        ) : (
-          ""
-        )}
-        {currentChat ? (
-          <ChatContainer
-            currentChat={currentChat}
-            currentUser={currentUser}
-            socket={socket}
-          />
-        ) : (
-          <Welcome currentUser={currentUser} />
-        )}
-      </div>
-    </Container>
+    <>
+      <Container>
+        <div className="container">
+          <span className="home">
+            <Link to="/">
+              <AiFillHome />
+            </Link>
+            <Logout type="icon" />
+          </span>
+          {currentUser ? (
+            <Contacts
+              contacts={contacts}
+              currentUser={currentUser}
+              changeChat={handleChatChange}
+            />
+          ) : (
+            ""
+          )}
+          {currentChat ? (
+            <ChatContainer
+              currentChat={currentChat}
+              currentUser={currentUser}
+              socket={socket}
+            />
+          ) : (
+            <Welcome currentUser={currentUser} />
+          )}
+        </div>
+      </Container>
+    </>
   );
 };
 
@@ -115,21 +117,18 @@ const Container = styled.div`
     }
   }
   .home {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
     position: absolute;
     height: 2rem;
-    top:1rem;
-    right:1rem;
+    top: 1rem;
+    right: 1rem;
     svg {
       cursor: pointer;
       color: var(--white-font);
     }
-  }
-  .home:first-child{
-    font-size:1.5rem;
   }
   .container div:first-child {
     border-top-left-radius: 0.5rem;
