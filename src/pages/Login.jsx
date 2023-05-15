@@ -126,6 +126,9 @@ const FormContainer = styled.div`
     border-radius: 2rem;
     padding: 3rem 5rem;
     position: relative;
+    @media screen and (max-width: 767px) {
+      padding: 3rem 4rem;
+    }
     input {
       background-color: transparent;
       padding: 1rem;
@@ -158,7 +161,7 @@ const FormContainer = styled.div`
       /* text-transform:uppercase; */
     }
     a {
-      color: var(--border-and-hover-color);
+      color: var(--white-font);
       text-decoration: none;
       font-weight: bold;
     }

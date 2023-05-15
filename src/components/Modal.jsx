@@ -49,7 +49,7 @@ const Container = styled.div`
 
   .modal {
     min-width: 25vw;
-    min-height: 40vh;
+    /* height: 30vh; */
     background: var(--modal-bg);
     color: var(--white-font);
     z-index: 10;
@@ -77,14 +77,14 @@ const Container = styled.div`
 
   .modalContent {
     padding: 10px;
+    padding-bottom:2rem;
     font-size: 14px;
     color: var(--white-font);
     text-align: center;
   }
 
   .modalActions {
-    position: absolute;
-    bottom: 2px;
+    padding-bottom:1rem;
     margin-bottom: 10px;
     width: 100%;
   }

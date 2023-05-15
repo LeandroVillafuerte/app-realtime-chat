@@ -24,8 +24,8 @@ const Messages = ({ messages, scrollRef }) => {
 
 const Container = styled.div`
   .chat-messages {
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
@@ -50,6 +50,10 @@ const Container = styled.div`
         font-size: 1.1rem;
         border-radius: 1rem;
         color: #d1d1d1;
+        @media screen and (max-width: 991px) {
+          font-size: 1.2rem;
+          max-width: 70%;
+        }
       }
     }
     .sended {

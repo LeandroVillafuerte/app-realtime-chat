@@ -122,6 +122,16 @@ const Container = styled.div`
     border-radius: 2rem;
     padding: 3rem 5rem;
     position: relative;
+    @media screen and (max-width: 767px) {
+      height: 80%;
+      max-width: 95%;
+      padding: 0;
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      padding-top: 3rem;
+      height: 60%;
+      gap: 3rem;
+    }
     .back {
       position: absolute;
       top: 2rem;
@@ -132,6 +142,7 @@ const Container = styled.div`
     max-inline-size: 100%;
   }
   .title-container {
+    padding: 0 1.5rem;
     h1 {
       color: var(--white-font);
     }
@@ -140,6 +151,12 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     gap: 2rem;
+    @media screen and (max-width: 767px) {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
     .avatar {
       border: 0.4rem solid transparent;
       padding: 0.4rem;
@@ -168,6 +185,13 @@ const Container = styled.div`
     transition: 0.5s ease-in-out;
     &:hover {
       background-color: var(--border-and-hover-color);
+    }
+    @media screen and (max-width: 767px) {
+      font-size: 1.5rem;
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      margin-top:2rem;
+      font-size: 2rem;
     }
   }
 `;

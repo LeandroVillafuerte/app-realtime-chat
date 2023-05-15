@@ -13,7 +13,6 @@ const Contacts = ({
   contacts,
   currentUser,
   changeChat,
-  getContacts,
   socket,
   setContacts,
 }) => {
@@ -164,6 +163,9 @@ const Container = styled.div`
   grid-template-rows: 10% 10% 70% 10%;
   overflow: hidden;
   background-color: var(--page-container-color);
+  @media screen and (max-width: 991px) {
+    grid-template-rows: 17% 15% 58% 10%;
+  }
   .current-user {
     background-color: var(--primary-color);
     display: flex;
@@ -176,11 +178,21 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       gap: 1rem;
+      @media screen and (max-width: 991px) {
+        padding-top:0.5rem;
+        flex-direction:column;
+        justify-content:flex-start;
+        align-items: flex-start;
+        gap:0;
+      }
     }
     .avatar {
       img {
         height: 1.8rem;
         max-inline-size: 100%;
+        @media screen and (max-width: 991px) {
+          height: 3rem;
+        }
       }
     }
     .home {
@@ -193,16 +205,12 @@ const Container = styled.div`
     .username {
       h2 {
         color: var(--white-font);
-      }
-    }
-    @media screen and (max-width: 1080px) {
-      gap: 0.5rem;
-      .username {
-        h2 {
-          font-size: 1rem;
+        @media screen and (max-width: 991px) {
+          font-size: 2rem;
         }
       }
     }
+
   }
   .add-contact {
     display: flex;
@@ -210,6 +218,9 @@ const Container = styled.div`
     justify-content: center;
     padding: 2rem;
     max-height: 10%;
+    @media screen and (max-width: 991px) {
+      padding-top: 3.5rem;
+    }
     button.add-contact-btn {
       display: flex;
       align-items: center;
@@ -225,6 +236,9 @@ const Container = styled.div`
       text-transform: uppercase;
       transition: 0.5s ease-in-out;
       min-width: 12rem;
+      @media screen and (max-width: 991px) {
+        font-size: 1.5rem;
+      }
       &:hover {
         background-color: var(--border-and-hover-color);
       }

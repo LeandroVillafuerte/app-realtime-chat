@@ -3,7 +3,7 @@ import styled from "styled-components";
 import EmojiPicker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
 
-const ChatInput = ({ handleSendMsg, currentChat }) => {
+const ChatInput = ({ handleSendMsg, currentChat,mobile=false }) => {
   const wrapperRef = useRef(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
@@ -55,8 +55,12 @@ const ChatInput = ({ handleSendMsg, currentChat }) => {
             😃
           </div>
           {showEmojiPicker && (
-            <EmojiPicker Theme="dark" onEmojiClick={handleEmojiClick} />
-          )}
+            <EmojiPicker
+              Theme="dark"
+              onEmojiClick={handleEmojiClick}
+              width={mobile && '80vw'}
+              />
+              )}
         </div>
       </div>
       <form className="input-container" onSubmit={(e) => sendChat(e)}>
@@ -82,9 +86,9 @@ const Container = styled.div`
   background-color: var(--page-container-color);
   padding: 0.1rem 2rem 0.1rem 0.5rem;
   padding-bottom: 0.3rem;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    padding: 0 1rem;
-    gap: 1rem;
+  @media screen and (max-width: 991px) {
+    grid-template-columns: 15% 85%;
+    padding: 0.1rem 0.5rem 0.1rem 0.5rem;
   }
   .button-container {
     display: flex;
@@ -122,6 +126,9 @@ const Container = styled.div`
     border-radius: 2rem;
     display: flex;
     gap: 2rem;
+    @media screen and (max-width: 991px) {
+      gap: 0;
+    }
     input {
       background-color: #ffffff34;
       width: 90%;
@@ -131,11 +138,18 @@ const Container = styled.div`
       border: none;
       padding-left: 1rem;
       font-size: 1.2rem;
+      max-height: 3rem;
+      overflow-wrap: break-word;
       &::selection {
         background-color: var(--border-and-hover-color);
       }
       &:focus {
         outline: none;
+      }
+      @media screen and (max-width: 991px) {
+        ::placeholder {
+          font-size: 0.8rem;
+        }
       }
     }
     button {
@@ -147,7 +161,7 @@ const Container = styled.div`
       align-items: center;
       background-color: var(--button-primary-color);
       border: none;
-      @media screen and (min-width: 720px) and (max-width: 1080px) {
+      @media screen and (max-width: 991px) {
         padding: 0.3rem 1rem;
         svg {
           font-size: 1rem;

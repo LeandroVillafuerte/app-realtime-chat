@@ -10,12 +10,15 @@ import { io } from "socket.io-client";
 import { AiFillHome } from "react-icons/ai";
 import Logout from "../components/Logout";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "../custom-hooks/hooks";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 const Chat = ({ currentUser }) => {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState();
   const navigate = useNavigate();
   const socket = useRef();
+  const { Desktop, Tablet, Mobile } = useMediaQuery();
 
   useEffect(() => {
     if (!localStorage.getItem("chat-app-user")) {
@@ -30,11 +33,11 @@ const Chat = ({ currentUser }) => {
     }
   }, [currentUser]);
 
-  async function getContacts() {
-    setContacts([]);
-    const contactsDB = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-    setContacts(contactsDB.data.users);
-  }
+  // async function getContacts() {
+  //   setContacts([]);
+  //   const contactsDB = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+  //   setContacts(contactsDB.data.users);
+  // }
 
   useEffect(() => {
     if (currentUser) {
@@ -63,38 +66,85 @@ const Chat = ({ currentUser }) => {
     setCurrentChat(chat);
   };
 
+  const DesktopTabletChildren = () => (
+    <div className="container">
+      <span className="home">
+        <Link to="/">
+          <AiFillHome />
+        </Link>
+        <Logout type="icon" />
+      </span>
+      {currentUser ? (
+        <Contacts
+          contacts={contacts}
+          currentUser={currentUser}
+          changeChat={handleChatChange}
+          setContacts={setContacts}
+          socket={socket}
+        />
+      ) : (
+        ""
+      )}
+      {currentChat ? (
+        <ChatContainer
+          currentChat={currentChat}
+          currentUser={currentUser}
+          socket={socket}
+        />
+      ) : (
+        <Welcome hasContacts={contacts.length > 0 ? true : false} />
+      )}
+    </div>
+  );
+
   return (
     <>
       <Container>
-        <div className="container">
-          <span className="home">
-            <Link to="/">
-              <AiFillHome />
-            </Link>
-            <Logout type="icon" />
-          </span>
-          {currentUser ? (
-            <Contacts
-              contacts={contacts}
-              currentUser={currentUser}
-              changeChat={handleChatChange}
-              getContacts={getContacts}
-              setContacts={setContacts}
-              socket={socket}
-            />
-          ) : (
-            ""
-          )}
-          {currentChat ? (
-            <ChatContainer
-              currentChat={currentChat}
-              currentUser={currentUser}
-              socket={socket}
-            />
-          ) : (
-            <Welcome hasContacts={contacts.length > 0 ? true : false} />
-          )}
-        </div>
+        <Desktop>
+          <DesktopTabletChildren />
+        </Desktop>
+        <Tablet>
+          <DesktopTabletChildren />
+        </Tablet>
+        <Mobile>
+          <div className="mobile-container">
+            {currentChat ? (
+              <span onClick={()=>handleChatChange(null)} className="back-btn">
+                <IoArrowBackCircleSharp />
+              </span>
+            ) : (
+              ""
+            )}
+            <span className="home">
+              <Link to="/">
+                <AiFillHome />
+              </Link>
+              <Logout type="icon" />
+            </span>
+            {currentChat ? (
+              <ChatContainer
+                currentChat={currentChat}
+                currentUser={currentUser}
+                socket={socket}
+                mobile={true}
+              />
+            ) : (
+              <>
+                {currentUser ? (
+                  <Contacts
+                    contacts={contacts}
+                    currentUser={currentUser}
+                    changeChat={handleChatChange}
+                    setContacts={setContacts}
+                    socket={socket}
+                  />
+                ) : (
+                  ""
+                )}
+              </>
+            )}
+          </div>
+        </Mobile>
       </Container>
     </>
   );
@@ -118,11 +168,30 @@ const Container = styled.div`
     grid-template-columns: 25% 75%;
     border-radius: 0.5rem;
     position: relative;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
+  }
+  .mobile-container {
+    height: 85vh;
+    width: 85vw;
+    background-color: var(--chat-container-color);
+    display: grid;
+    border-radius: 0.5rem;
+    position: relative;
+    @media screen and (max-width: 991px) {
+      font-size: 1.5rem;
     }
-    @media screen and (max-width: 720px) {
-      grid-template-columns: 40% 60%;
+  }
+  .back-btn {
+    position: absolute;
+    top: 0.5rem;
+    left: 1.5rem;
+    font-size: 2rem;
+    color: var(--white-font);
+    cursor: pointer;
+    @media screen and (max-width: 767px) {
+      font-size: 3rem;
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      font-size: 4rem;
     }
   }
   .home {
@@ -134,9 +203,15 @@ const Container = styled.div`
     height: 2rem;
     top: 1rem;
     right: 1rem;
+    @media screen and (max-width: 991px) {
+      font-size: 3rem;
+    }
     svg {
       cursor: pointer;
       color: var(--white-font);
+      @media screen and (max-width: 991px) {
+        font-size: 2rem;
+      }
     }
   }
   .container div:first-child {

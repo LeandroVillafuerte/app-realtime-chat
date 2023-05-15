@@ -6,7 +6,7 @@ import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../utils/apiRoutes";
 import Messages from "./Messages";
 
-const ChatContainer = ({ currentChat, currentUser, socket }) => {
+const ChatContainer = ({ currentChat, currentUser, socket, mobile=false }) => {
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const scrollRef = useRef();
@@ -80,8 +80,12 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
             </div>
             <Logout />
           </div>
-          <Messages messages={messages} scrollRef={scrollRef} currentChat={currentChat}/>
-          <ChatInput currentChat={currentChat} handleSendMsg={handleSendMsg} />
+          <Messages
+            messages={messages}
+            scrollRef={scrollRef}
+            currentChat={currentChat}
+          />
+          <ChatInput mobile={mobile} currentChat={currentChat} handleSendMsg={handleSendMsg} />
         </>
       ) : (
         ""
@@ -96,17 +100,18 @@ const Container = styled.div`
   grid-template-rows: 10% 78% 12%;
   gap: 0.1rem;
   overflow: hidden;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-rows: 15% 70% 15%;
-  }
-  @media screen and (max-width: 720px) {
-    grid-template-rows: 15% 70% 15%;
+  @media screen and (max-width: 991px) {
+    grid-template-rows: 16% 69% 15%;
   }
   .chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    @media screen and (max-width: 991px) {
+      align-items: flex-end;
+      padding: 0 1.5rem;
+    }
     .user-details {
       display: flex;
       align-items: center;
