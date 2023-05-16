@@ -3,7 +3,7 @@ import styled from "styled-components";
 import EmojiPicker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
 
-const ChatInput = ({ handleSendMsg, currentChat,mobile=false }) => {
+const ChatInput = ({ handleSendMsg, currentChat, mobile = false }) => {
   const wrapperRef = useRef(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
@@ -58,9 +58,9 @@ const ChatInput = ({ handleSendMsg, currentChat,mobile=false }) => {
             <EmojiPicker
               Theme="dark"
               onEmojiClick={handleEmojiClick}
-              width={mobile && '80vw'}
-              />
-              )}
+              width={mobile && "80vw"}
+            />
+          )}
         </div>
       </div>
       <form className="input-container" onSubmit={(e) => sendChat(e)}>
@@ -87,18 +87,32 @@ const Container = styled.div`
   padding: 0.1rem 2rem 0.1rem 0.5rem;
   padding-bottom: 0.3rem;
   @media screen and (max-width: 991px) {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+  @media screen and (max-width: 767px) {
     grid-template-columns: 15% 85%;
     padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+  }
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    grid-template-columns: 10% 90%;
   }
   .button-container {
     display: flex;
     align-items: center;
     color: var(--white-font);
     gap: 1rem;
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      padding-left: 0.5rem;
+    }
     .emoji-container {
       position: relative;
+
       .emoji {
         font-size: 1.5rem;
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+          font-size: 2.5rem;
+        }
         cursor: pointer;
       }
       .EmojiPickerReact.epr-dark-theme {
@@ -126,8 +140,11 @@ const Container = styled.div`
     border-radius: 2rem;
     display: flex;
     gap: 2rem;
-    @media screen and (max-width: 991px) {
-      gap: 0;
+    @media screen and (max-width: 767px) {
+      gap: 0.4rem;
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      padding-left: 0.5rem;
     }
     input {
       background-color: #ffffff34;
@@ -146,7 +163,7 @@ const Container = styled.div`
       &:focus {
         outline: none;
       }
-      @media screen and (max-width: 991px) {
+      @media screen and (max-width: 767px) {
         ::placeholder {
           font-size: 0.8rem;
         }
@@ -161,15 +178,15 @@ const Container = styled.div`
       align-items: center;
       background-color: var(--button-primary-color);
       border: none;
-      @media screen and (max-width: 991px) {
-        padding: 0.3rem 1rem;
-        svg {
-          font-size: 1rem;
-        }
-      }
       svg {
         font-size: 2rem;
         color: var(--white-font);
+      }
+      @media screen and (max-width: 767px) {
+        padding: 0.3rem 1rem;
+        svg {
+          font-size: 1.5rem;
+        }
       }
     }
   }

@@ -17,7 +17,7 @@ const Modal = ({ setIsOpen, title, actionBtnLabel, form, children }) => {
           <div className="modalContent">{children}</div>
           <div className="modalActions">
             <div className="actionsContainer">
-              <button form={form} type="submit" className="actionBtn" >
+              <button form={form} type="submit" className="actionBtn">
                 {actionBtnLabel}
               </button>
             </div>
@@ -48,6 +48,7 @@ const Container = styled.div`
   }
 
   .modal {
+    display: grid;
     min-width: 25vw;
     /* height: 30vh; */
     background: var(--modal-bg);
@@ -55,6 +56,14 @@ const Container = styled.div`
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    @media screen and (max-width: 767px) {
+      min-width: 70vw;
+      min-height: 40vh;
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      min-width: 60vw;
+      min-height: 30vh;
+    }
   }
 
   .modalHeader {
@@ -73,18 +82,24 @@ const Container = styled.div`
     font-weight: 500;
     font-size: 18px;
     text-align: center;
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      font-size: 1.5rem;
+    }
   }
 
   .modalContent {
     padding: 10px;
-    padding-bottom:2rem;
+    padding-bottom: 2rem;
     font-size: 14px;
     color: var(--white-font);
     text-align: center;
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      font-size: 1.2rem;
+    }
   }
 
   .modalActions {
-    padding-bottom:1rem;
+    padding-bottom: 1rem;
     margin-bottom: 10px;
     width: 100%;
   }
@@ -107,7 +122,7 @@ const Container = styled.div`
       text-transform: uppercase;
       transition: 0.5s ease-in-out;
       min-width: 7rem;
-      height:2rem;
+      height: 2rem;
       &:hover {
         background-color: var(--border-and-hover-color);
       }

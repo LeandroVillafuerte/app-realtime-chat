@@ -163,8 +163,14 @@ const Container = styled.div`
   grid-template-rows: 10% 10% 70% 10%;
   overflow: hidden;
   background-color: var(--page-container-color);
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: 767px) {
     grid-template-rows: 17% 15% 58% 10%;
+  }
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    grid-template-rows: 14% 12% 64% 10%;
+  }
+  @media screen and (max-width: 991px) {
+    border-radius: 0.5rem;
   }
   .current-user {
     background-color: var(--primary-color);
@@ -178,20 +184,29 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       gap: 1rem;
-      @media screen and (max-width: 991px) {
-        padding-top:0.5rem;
-        flex-direction:column;
-        justify-content:flex-start;
+      @media screen and (max-width: 767px) {
+        padding-top: 0.5rem;
+        flex-direction: column;
+        justify-content: flex-start;
         align-items: flex-start;
-        gap:0;
+        gap: 0;
+      }
+      @media screen and (min-width: 768px) and (max-width: 991px) {
+        align-self: flex-end;
+        padding-bottom: 1rem;
+        padding-left: 1rem;
+        gap: 1.5rem;
       }
     }
     .avatar {
       img {
         height: 1.8rem;
         max-inline-size: 100%;
-        @media screen and (max-width: 991px) {
+        @media screen and (max-width: 767px) {
           height: 3rem;
+        }
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+          height: 4rem;
         }
       }
     }
@@ -210,7 +225,6 @@ const Container = styled.div`
         }
       }
     }
-
   }
   .add-contact {
     display: flex;

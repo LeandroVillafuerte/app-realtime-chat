@@ -56,7 +56,7 @@ const App = () => {
           color: "dimgrey",
         }}
       >
-        By Leandro M. Villafuerte 2023
+        By Leandro M. Villafuerte 2023 v1.0
       </footer>
     </>
   );

@@ -66,7 +66,7 @@ const Chat = ({ currentUser }) => {
     setCurrentChat(chat);
   };
 
-  const DesktopTabletChildren = () => (
+  const DesktopChildren = () => (
     <div className="container">
       <span className="home">
         <Link to="/">
@@ -97,53 +97,57 @@ const Chat = ({ currentUser }) => {
     </div>
   );
 
+  const ResponsiveChildren = () => (
+    <div className="mobile-container">
+      <span className="home">
+        {currentChat ? (
+          <div onClick={() => handleChatChange(null)} className="back-btn">
+            <IoArrowBackCircleSharp />
+          </div>
+        ) : (
+          ""
+        )}
+        <Link to="/">
+          <AiFillHome />
+        </Link>
+        <Logout type="icon" />
+      </span>
+      {currentChat ? (
+        <ChatContainer
+          currentChat={currentChat}
+          currentUser={currentUser}
+          socket={socket}
+          mobile={true}
+        />
+      ) : (
+        <>
+          {currentUser ? (
+            <Contacts
+              contacts={contacts}
+              currentUser={currentUser}
+              changeChat={handleChatChange}
+              setContacts={setContacts}
+              socket={socket}
+            />
+          ) : (
+            ""
+          )}
+        </>
+      )}
+    </div>
+  );
+
   return (
     <>
       <Container>
         <Desktop>
-          <DesktopTabletChildren />
+          <DesktopChildren />
         </Desktop>
         <Tablet>
-          <DesktopTabletChildren />
+          <ResponsiveChildren />
         </Tablet>
         <Mobile>
-          <div className="mobile-container">
-            {currentChat ? (
-              <span onClick={()=>handleChatChange(null)} className="back-btn">
-                <IoArrowBackCircleSharp />
-              </span>
-            ) : (
-              ""
-            )}
-            <span className="home">
-              <Link to="/">
-                <AiFillHome />
-              </Link>
-              <Logout type="icon" />
-            </span>
-            {currentChat ? (
-              <ChatContainer
-                currentChat={currentChat}
-                currentUser={currentUser}
-                socket={socket}
-                mobile={true}
-              />
-            ) : (
-              <>
-                {currentUser ? (
-                  <Contacts
-                    contacts={contacts}
-                    currentUser={currentUser}
-                    changeChat={handleChatChange}
-                    setContacts={setContacts}
-                    socket={socket}
-                  />
-                ) : (
-                  ""
-                )}
-              </>
-            )}
-          </div>
+          <ResponsiveChildren />
         </Mobile>
       </Container>
     </>
@@ -180,20 +184,7 @@ const Container = styled.div`
       font-size: 1.5rem;
     }
   }
-  .back-btn {
-    position: absolute;
-    top: 0.5rem;
-    left: 1.5rem;
-    font-size: 2rem;
-    color: var(--white-font);
-    cursor: pointer;
-    @media screen and (max-width: 767px) {
-      font-size: 3rem;
-    }
-    @media screen and (min-width: 768px) and (max-width: 991px) {
-      font-size: 4rem;
-    }
-  }
+
   .home {
     display: flex;
     align-items: center;
@@ -204,6 +195,7 @@ const Container = styled.div`
     top: 1rem;
     right: 1rem;
     @media screen and (max-width: 991px) {
+      gap: 2rem;
       font-size: 3rem;
     }
     svg {
