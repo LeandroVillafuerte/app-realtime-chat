@@ -37,7 +37,7 @@ const About = () => {
             users in a real-time chat environment. Using technologies like
             MongoDB, Express, React, and Node.js, I have developed a simple
             platform for instant communication. Also it's full responsive for
-            mobile and table! I invite you to check it out ✨.
+            mobile and tablet! I invite you to check it out ✨.
           </p>
         </section>
         <section className="contact">
