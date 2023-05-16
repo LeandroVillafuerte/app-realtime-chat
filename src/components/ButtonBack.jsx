@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 
-const ButtonBack = () => {
+const ButtonBack = ({url=-1}) => {
   const navigate = useNavigate();
   return (
-    <Container onClick={() => navigate(-1)} className="back">
+    <Container onClick={() => navigate(url)} className="back">
       <IoArrowBackCircleSharp />
     </Container>
   );

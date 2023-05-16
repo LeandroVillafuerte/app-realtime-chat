@@ -55,7 +55,7 @@ const Contacts = ({
       });
       setContacts([...contacts, data.updatedContact]);
       setIsModalOpen(false);
-      toast.info(data.msg);
+      toast.info(data.msg,toastOptions);
     } catch (e) {
       toast.error(e.response.data.msg, toastOptions);
     }

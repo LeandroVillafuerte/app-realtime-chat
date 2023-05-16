@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import SetAvatar from "./pages/SetAvatar";
 import Home from "./pages/Home";
+import About from "./pages/About";
 import { ToastContainer } from "react-toastify";
 
 export const CurrentUserContext = createContext(null);
@@ -39,10 +40,20 @@ const App = () => {
       >
         <Routes>
           <Route path="/" element={<Home currentUser={currentUser} />} />
-          <Route path="/register" element={<Register setCurrentUser={setCurrentUser}/>} />
-          <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-          <Route path="/setAvatar" element={<SetAvatar setCurrentUser={setCurrentUser} />} />
+          <Route
+            path="/register"
+            element={<Register setCurrentUser={setCurrentUser} />}
+          />
+          <Route
+            path="/login"
+            element={<Login setCurrentUser={setCurrentUser} />}
+          />
+          <Route
+            path="/setAvatar"
+            element={<SetAvatar setCurrentUser={setCurrentUser} />}
+          />
           <Route path="/chat" element={<Chat currentUser={currentUser} />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>
       </CurrentUserContext.Provider>
