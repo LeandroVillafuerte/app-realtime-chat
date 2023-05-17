@@ -45,6 +45,7 @@ const ChatContainer = ({
       to: currentChat._id,
       from: currentUser._id,
       message: msg,
+      userFrom:currentUser.username
     });
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: msg });
@@ -53,11 +54,11 @@ const ChatContainer = ({
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.on("msg-receive", (msg) => {
-        setArrivalMessage({ fromSelf: false, message: msg });
+      socket.current.on("msg-receive", (data) => {
+        if(data.from === currentChat._id)setArrivalMessage({ fromSelf: false, message: data.message });
       });
     }
-  }, [socket]);
+  }, [socket,currentChat]);
 
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);

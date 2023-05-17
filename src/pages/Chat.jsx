@@ -81,6 +81,7 @@ const Chat = ({ currentUser }) => {
           changeChat={handleChatChange}
           setContacts={setContacts}
           socket={socket}
+          currentChat={currentChat}
         />
       ) : (
         ""
@@ -124,6 +125,7 @@ const Chat = ({ currentUser }) => {
           {currentUser ? (
             <Contacts
               contacts={contacts}
+              currentChat={currentChat}
               currentUser={currentUser}
               changeChat={handleChatChange}
               setContacts={setContacts}

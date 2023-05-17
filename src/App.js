@@ -58,17 +58,6 @@ const App = () => {
         </Routes>
       </CurrentUserContext.Provider>
       <ToastContainer />
-
-      <footer
-        style={{
-          position: "absolute",
-          bottom: "1rem",
-          right: "1rem",
-          color: "dimgrey",
-        }}
-      >
-        By Leandro M. Villafuerte 2023 v1.0
-      </footer>
     </>
   );
 };

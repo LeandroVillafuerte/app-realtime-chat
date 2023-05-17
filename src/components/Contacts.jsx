@@ -9,19 +9,27 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { addContactRoute } from "../utils/apiRoutes";
 
+const toastOptions = {
+  position: "top-right",
+  autoClose: 7500,
+  pauseOnHover: true,
+  theme: "dark",
+};
+
 const Contacts = ({
   contacts,
   currentUser,
   changeChat,
   socket,
   setContacts,
+  currentChat,
 }) => {
   const navigate = useNavigate();
-  const [currentSelected, setCurrentSelected] = useState();
   const currentUserName = currentUser.username;
   const currentUserImage = currentUser.avatarImage;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addUserInput, setAddUserInput] = useState("");
+  const [newMessage, setNewMessage] = useState({});
 
   useEffect(() => {
     if (socket.current) {
@@ -31,9 +39,37 @@ const Contacts = ({
     }
   }, [socket, contacts, setContacts]);
 
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-receive", (data) => {
+        if (
+          currentChat?.username !== data.userFrom &&
+          currentUser.username !== data.userFrom &&
+          !ignore
+        ) {
+          toast(
+            `📩 ${data.userFrom} says: ${
+              data.message.length < 15
+                ? data.message
+                : data.message.slice(0, 15) + "..."
+            }`,
+            toastOptions
+          );
+          setNewMessage({ ...newMessage, [data.from]: true });
+        }
+      });
+      let ignore = false;
+      return () => {
+        ignore = true;
+      };
+    }
+  }, [socket, currentChat, currentUser, newMessage]);
+
   const changeCurrentChat = (index, contact) => {
-    setCurrentSelected(index);
     changeChat(contact);
+    const readMessage = newMessage;
+    delete readMessage[contact._id];
+    setNewMessage(readMessage);
   };
 
   const handleChange = (e) => {
@@ -55,17 +91,10 @@ const Contacts = ({
       });
       setContacts([...contacts, data.updatedContact]);
       setIsModalOpen(false);
-      toast.info(data.msg,toastOptions);
+      toast.info(data.msg, toastOptions);
     } catch (e) {
       toast.error(e.response.data.msg, toastOptions);
     }
-  };
-
-  const toastOptions = {
-    position: "top-right",
-    autoClose: 7500,
-    pauseOnHover: true,
-    theme: "dark",
   };
 
   const handleValidationErrors = () => {
@@ -130,7 +159,7 @@ const Contacts = ({
               return (
                 <div
                   className={`contact ${
-                    index === currentSelected ? "selected" : ""
+                    currentChat?.username === contact.username ? "selected" : ""
                   }`}
                   key={"contact" + index}
                   onClick={() => changeCurrentChat(index, contact)}
@@ -142,7 +171,10 @@ const Contacts = ({
                     />
                   </div>
                   <div className="username">
-                    <h3>{contact.username}</h3>
+                    <h3>
+                      {contact.username}{" "}
+                      {Object.hasOwn(newMessage, contact._id) && "✉"}
+                    </h3>
                   </div>
                 </div>
               );
@@ -222,6 +254,9 @@ const Container = styled.div`
         color: var(--white-font);
         @media screen and (max-width: 991px) {
           font-size: 2rem;
+        }
+        @media screen and (max-width: 767px) {
+            font-size: 1.5rem;
         }
       }
     }
@@ -320,7 +355,7 @@ const Container = styled.div`
       text-transform: uppercase;
     }
     @media screen and (max-width: 767px) {
-      font-size:1.5rem;
+      font-size: 1.5rem;
     }
   }
 
