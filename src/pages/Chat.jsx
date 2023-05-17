@@ -28,7 +28,7 @@ const Chat = ({ currentUser }) => {
 
   useEffect(() => {
     if (currentUser) {
-      socket.current = io(host);
+      socket.current = io(host, { withCredentials: true });
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
@@ -183,7 +183,7 @@ const Container = styled.div`
     border-radius: 0.5rem;
     position: relative;
     @media screen and (max-width: 767px) {
-      margin-top:2rem;
+      margin-top: 2rem;
       margin-bottom: 3rem;
     }
   }
