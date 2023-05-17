@@ -1,4 +1,6 @@
-export const host = "http://localhost:5500";
+export const host = "https://chatify-api-vjqn.onrender.com"
+
+// "http://localhost:5500";
 
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
