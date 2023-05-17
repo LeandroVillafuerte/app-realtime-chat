@@ -132,7 +132,7 @@ const FormContainer = styled.div`
   background-color: var(--background-primary-color);
   .back {
     position: absolute;
-    right: 2rem;
+    top: 2rem;
     left: 2rem;
     @media screen and (max-width: 767px) {
       font-size: 3rem;

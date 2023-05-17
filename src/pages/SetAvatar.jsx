@@ -136,6 +136,9 @@ const Container = styled.div`
       position: absolute;
       top: 2rem;
       left: 2rem;
+      @media screen and (max-width: 767px) {
+        font-size: 3rem;
+      }
     }
   }
   .loader {
@@ -190,7 +193,7 @@ const Container = styled.div`
       font-size: 1.5rem;
     }
     @media screen and (min-width: 768px) and (max-width: 991px) {
-      margin-top:2rem;
+      margin-top: 2rem;
       font-size: 2rem;
     }
   }

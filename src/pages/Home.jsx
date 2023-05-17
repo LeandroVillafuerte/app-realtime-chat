@@ -68,7 +68,7 @@ const Container = styled.div`
     @media screen and (max-width: 991px) {
       height: 80vh;
       padding: 3rem 3rem;
-      margin-bottom:3rem;
+      /* margin-bottom:3rem; */
       width:95%;
     }
     @media screen and (min-width: 768px) and (max-width: 991px) {

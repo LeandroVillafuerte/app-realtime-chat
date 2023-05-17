@@ -288,6 +288,9 @@ const Container = styled.div`
       @media screen and (max-width: 991px) {
         font-size: 1.5rem;
       }
+      @media screen and (max-width: 767px) {
+        font-size: 1.3rem;
+      }
       &:hover {
         background-color: var(--border-and-hover-color);
       }
