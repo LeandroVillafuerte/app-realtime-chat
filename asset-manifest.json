@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/app-realtime-chat/static/css/main.688c8148.css",
+    "main.js": "/app-realtime-chat/static/js/main.9b0464a1.js",
+    "static/media/coffees-americano.gif": "/app-realtime-chat/static/media/coffees-americano.0ea1dad5d7013269de87.gif",
+    "index.html": "/app-realtime-chat/index.html",
+    "main.688c8148.css.map": "/app-realtime-chat/static/css/main.688c8148.css.map",
+    "main.9b0464a1.js.map": "/app-realtime-chat/static/js/main.9b0464a1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.688c8148.css",
+    "static/js/main.9b0464a1.js"
+  ]
+}
