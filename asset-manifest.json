@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/app-realtime-chat/static/css/main.688c8148.css",
-    "main.js": "/app-realtime-chat/static/js/main.8f316c8d.js",
+    "main.js": "/app-realtime-chat/static/js/main.c7764b7e.js",
     "static/media/coffees-americano.gif": "/app-realtime-chat/static/media/coffees-americano.0ea1dad5d7013269de87.gif",
     "static/media/tail-spin.svg": "/app-realtime-chat/static/media/tail-spin.86194a552d45044eea10396f20518cab.svg",
     "index.html": "/app-realtime-chat/index.html",
     "main.688c8148.css.map": "/app-realtime-chat/static/css/main.688c8148.css.map",
-    "main.8f316c8d.js.map": "/app-realtime-chat/static/js/main.8f316c8d.js.map"
+    "main.c7764b7e.js.map": "/app-realtime-chat/static/js/main.c7764b7e.js.map"
   },
   "entrypoints": [
     "static/css/main.688c8148.css",
-    "static/js/main.8f316c8d.js"
+    "static/js/main.c7764b7e.js"
   ]
 }
