@@ -66,9 +66,10 @@ const Container = styled.div`
     border-radius: 2rem;
     padding: 3rem 5rem;
     @media screen and (max-width: 991px) {
-      height: 80%;
+      height: 80vh;
       padding: 3rem 3rem;
-      width:95%
+      margin-bottom:3rem;
+      width:95%;
     }
     @media screen and (min-width: 768px) and (max-width: 991px) {
       font-size: 1.5rem;

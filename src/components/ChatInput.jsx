@@ -167,6 +167,7 @@ const Container = styled.div`
         ::placeholder {
           font-size: 0.8rem;
         }
+        font-size: 0.8rem;
       }
     }
     button {

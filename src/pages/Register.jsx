@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { registerRoute } from "../utils/apiRoutes";
 import ButtonBack from "../components/ButtonBack";
+import spinner from "../assets/tail-spin.svg";
 
 const Register = ({ setCurrentUser }) => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Register = ({ setCurrentUser }) => {
     password: "",
     confirmPassword: "",
   });
+  const [registering, setRegistering] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("chat-app-user")) {
       navigate("/");
@@ -24,6 +26,8 @@ const Register = ({ setCurrentUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!handleValidationErrors()) return false;
+    setRegistering(true);
+    toast.info("This may take a while.")
     const { username, email, password } = infoForm;
     try {
       const { data } = await axios.post(registerRoute, {
@@ -33,9 +37,11 @@ const Register = ({ setCurrentUser }) => {
       });
       localStorage.setItem("chat-app-user", JSON.stringify(data.user));
       setCurrentUser(data.user);
+      setRegistering(false);
       navigate("/");
     } catch (e) {
       toast.error(e.response.data.msg, toastOptions);
+      setRegistering(false);
     }
   };
   const handleChange = (e) => {
@@ -99,7 +105,13 @@ const Register = ({ setCurrentUser }) => {
             name="confirmPassword"
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit">Create User</button>
+          {registering ? (
+            <button className="spinner">
+              <img src={spinner} alt="spinner" className="spinner" />
+            </button>
+          ) : (
+            <button type="submit">Create User</button>
+          )}
           <span>
             Already have an account? <Link to="/login">Login</Link>
           </span>
@@ -122,6 +134,9 @@ const FormContainer = styled.div`
     position: absolute;
     right: 2rem;
     left: 2rem;
+    @media screen and (max-width: 767px) {
+      font-size: 3rem;
+    }
   }
   .brand {
     display: flex;
@@ -169,6 +184,13 @@ const FormContainer = styled.div`
       transition: 0.5s ease-in-out;
       &:hover {
         background-color: var(--border-and-hover-color);
+      }
+    }
+    .spinner {
+      padding: 0.5rem 2rem;
+      img {
+        padding:0;
+        height: 2rem;
       }
     }
     span {

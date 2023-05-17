@@ -319,6 +319,9 @@ const Container = styled.div`
       color: var(--white-font);
       text-transform: uppercase;
     }
+    @media screen and (max-width: 767px) {
+      font-size:1.5rem;
+    }
   }
 
   form {

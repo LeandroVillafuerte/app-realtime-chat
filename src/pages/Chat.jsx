@@ -180,8 +180,9 @@ const Container = styled.div`
     display: grid;
     border-radius: 0.5rem;
     position: relative;
-    @media screen and (max-width: 991px) {
-      font-size: 1.5rem;
+    @media screen and (max-width: 767px) {
+      margin-top:2rem;
+      margin-bottom: 3rem;
     }
   }
 
@@ -194,15 +195,15 @@ const Container = styled.div`
     height: 2rem;
     top: 1rem;
     right: 1rem;
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 767px) {
       gap: 2rem;
-      font-size: 3rem;
+      font-size: 2rem;
     }
     svg {
       cursor: pointer;
       color: var(--white-font);
-      @media screen and (max-width: 991px) {
-        font-size: 2rem;
+      @media screen and (min-width: 768) and (max-width: 991px) {
+        font-size: 2.5rem;
       }
     }
   }

@@ -7,8 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { loginRoute } from "../utils/apiRoutes";
 import ButtonBack from "../components/ButtonBack";
-
+import spinner from "../assets/tail-spin.svg";
 const Login = ({ setCurrentUser }) => {
+  const [logging, setLogging] = useState(false);
   const navigate = useNavigate();
   const [infoForm, setInfoForm] = useState({
     username: "",
@@ -22,6 +23,8 @@ const Login = ({ setCurrentUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!handleValidationErrors()) return false;
+    setLogging(true);
+    toast.info("This may take a while.");
     const { username, password } = infoForm;
     try {
       const { data } = await axios.post(loginRoute, {
@@ -31,9 +34,11 @@ const Login = ({ setCurrentUser }) => {
       localStorage.setItem("chat-app-user", JSON.stringify(data.user));
       setCurrentUser(data.user);
       toast.info(data.msg);
+      setLogging(false);
       navigate("/");
     } catch (e) {
       toast.error(e.response.data.msg, toastOptions);
+      setLogging(false);
     }
   };
   const handleChange = (e) => {
@@ -81,7 +86,13 @@ const Login = ({ setCurrentUser }) => {
             name="password"
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit">Log in</button>
+          {logging ? (
+            <button className="spinner">
+              <img src={spinner} alt="spinner" className="spinner" />
+            </button>
+          ) : (
+            <button type="submit">Log in</button>
+          )}
           <button>
             <Link to="/register">Register</Link>
           </button>
@@ -104,6 +115,9 @@ const FormContainer = styled.div`
     position: absolute;
     top: 2rem;
     left: 2rem;
+    @media screen and (max-width: 767px) {
+      font-size: 3rem;
+    }
   }
   .brand {
     display: flex;
@@ -128,6 +142,7 @@ const FormContainer = styled.div`
     position: relative;
     @media screen and (max-width: 767px) {
       padding: 3rem 4rem;
+      margin-bottom: 3rem;
     }
     input {
       background-color: transparent;
@@ -154,6 +169,13 @@ const FormContainer = styled.div`
       transition: 0.5s ease-in-out;
       &:hover {
         background-color: var(--border-and-hover-color);
+      }
+    }
+    .spinner {
+      padding: 0.5rem 2rem;
+      img {
+        padding:0;
+        height: 2rem;
       }
     }
     span {
