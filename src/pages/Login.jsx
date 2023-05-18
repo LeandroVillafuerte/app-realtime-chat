@@ -93,9 +93,9 @@ const Login = ({ setCurrentUser }) => {
           ) : (
             <button type="submit">Log in</button>
           )}
-          <button>
-            <Link to="/register">Register</Link>
-          </button>
+          <span className="register">
+            Don't have an account? <Link to="/register">Register here</Link>
+          </span>
         </form>
       </FormContainer>
     </>
@@ -142,7 +142,8 @@ const FormContainer = styled.div`
     position: relative;
     @media screen and (max-width: 767px) {
       padding: 3rem 4rem;
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
+      width:95%;
     }
     input {
       background-color: transparent;
@@ -166,7 +167,7 @@ const FormContainer = styled.div`
       border-radius: 0.4rem;
       font-size: 1rem;
       text-transform: uppercase;
-      transition: 0.5s ease-in-out;
+      /* transition: 0.5s ease-in-out; */
       &:hover {
         background-color: var(--border-and-hover-color);
       }
@@ -174,7 +175,7 @@ const FormContainer = styled.div`
     .spinner {
       padding: 0.5rem 2rem;
       img {
-        padding:0;
+        padding: 0;
         height: 2rem;
       }
     }
@@ -186,6 +187,9 @@ const FormContainer = styled.div`
       color: var(--white-font);
       text-decoration: none;
       font-weight: bold;
+    }
+    .register a {
+      color: var(--border-and-hover-color);
     }
   }
 `;

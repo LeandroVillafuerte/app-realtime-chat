@@ -89,7 +89,7 @@ const ChatContainer = ({
             scrollRef={scrollRef}
             currentChat={currentChat}
           />
-          <ChatInput
+          <ChatInput className="chat-input"
             mobile={mobile}
             currentChat={currentChat}
             handleSendMsg={handleSendMsg}
@@ -109,7 +109,13 @@ const Container = styled.div`
   gap: 0.1rem;
   overflow: hidden;
   @media screen and (max-width: 767px) {
-    grid-template-rows: 13% 72% 15%;
+    grid-template-rows: 13% 70% 17%;
+    position: fixed;
+    width: 100%;
+    height: 108%;
+    .chat-input{
+      padding-bottom:2rem;
+    }
   }
   @media screen and (min-width: 768px) and (max-width: 991px) {
     grid-template-rows: 12% 73% 15%;
@@ -121,6 +127,7 @@ const Container = styled.div`
     padding: 0 2rem;
     @media screen and (max-width: 767px) {
       padding: 0 1rem;
+      padding-bottom:1rem;
       align-items:flex-end;
     }
     @media screen and (min-width: 768px) and (max-width: 991px) {

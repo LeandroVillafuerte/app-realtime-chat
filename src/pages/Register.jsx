@@ -27,7 +27,7 @@ const Register = ({ setCurrentUser }) => {
     e.preventDefault();
     if (!handleValidationErrors()) return false;
     setRegistering(true);
-    toast.info("This may take a while.")
+    toast.info("This may take a while.");
     const { username, email, password } = infoForm;
     try {
       const { data } = await axios.post(registerRoute, {
@@ -159,6 +159,12 @@ const FormContainer = styled.div`
     border-radius: 2rem;
     padding: 3rem 5rem;
     position: relative;
+    @media screen and (max-width: 767px) {
+      gap: 1.5rem;
+      margin-bottom:3rem;
+      width:95%;
+      padding: 3rem 4rem;
+    }
     input {
       background-color: transparent;
       padding: 1rem;
@@ -181,7 +187,7 @@ const FormContainer = styled.div`
       border-radius: 0.4rem;
       font-size: 1rem;
       text-transform: uppercase;
-      transition: 0.5s ease-in-out;
+      /* transition: 0.5s ease-in-out; */
       &:hover {
         background-color: var(--border-and-hover-color);
       }
@@ -189,7 +195,7 @@ const FormContainer = styled.div`
     .spinner {
       padding: 0.5rem 2rem;
       img {
-        padding:0;
+        padding: 0;
         height: 2rem;
       }
     }

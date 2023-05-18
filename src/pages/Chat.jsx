@@ -183,8 +183,9 @@ const Container = styled.div`
     border-radius: 0.5rem;
     position: relative;
     @media screen and (max-width: 767px) {
-      margin-top: 4rem;
-      margin-bottom:1rem;
+      height: 108%;
+      width: 100%;
+      position: fixed;
     }
   }
 
@@ -198,6 +199,8 @@ const Container = styled.div`
     top: 1rem;
     right: 1rem;
     @media screen and (max-width: 767px) {
+      top: 1.1rem;
+      z-index:1;
       gap: 2rem;
       font-size: 2rem;
     }

@@ -93,6 +93,7 @@ const Container = styled.div`
   @media screen and (max-width: 767px) {
     grid-template-columns: 15% 85%;
     padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+    padding-bottom:4rem;
   }
   @media screen and (min-width: 768px) and (max-width: 991px) {
     grid-template-columns: 10% 90%;

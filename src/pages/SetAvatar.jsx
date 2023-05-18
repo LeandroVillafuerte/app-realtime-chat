@@ -138,6 +138,8 @@ const Container = styled.div`
       left: 2rem;
       @media screen and (max-width: 767px) {
         font-size: 3rem;
+        top: 1rem;
+        left: 1rem;
       }
     }
   }
@@ -148,6 +150,9 @@ const Container = styled.div`
     padding: 0 1.5rem;
     h1 {
       color: var(--white-font);
+      @media screen and (max-width: 767px) {
+        font-size: 1.5rem;
+      }
     }
   }
   .avatars {

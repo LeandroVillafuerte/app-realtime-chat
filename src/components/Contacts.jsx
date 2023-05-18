@@ -217,7 +217,7 @@ const Container = styled.div`
       align-items: center;
       gap: 1rem;
       @media screen and (max-width: 767px) {
-        padding-top: 0.5rem;
+        padding-top: 1.5rem;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
@@ -359,6 +359,7 @@ const Container = styled.div`
     }
     @media screen and (max-width: 767px) {
       font-size: 1.5rem;
+      padding-bottom:6rem;
     }
   }
 

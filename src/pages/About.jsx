@@ -6,6 +6,7 @@ import { SiLinkedin } from "react-icons/si";
 import { MdContentCopy } from "react-icons/md";
 import { MdOutlineMail } from "react-icons/md";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const toastOptions = {
@@ -46,28 +47,28 @@ const About = () => {
             exploring my portfolio, I invite you to visit my LinkedIn profile
             and my GitHub repository.
             <div className="github">
-              <SiLinkedin />
-              <a href="www.github.com/LeandroVillafuerte">
+            <AiFillGithub />
+              <Link to="https://www.github.com/LeandroVillafuerte" target="_blank">
                 www.github.com/LeandroVillafuerte
-              </a>
+              </Link>
               <MdContentCopy
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    "www.github.com/LeandroVillafuerte"
+                    "https://www.github.com/LeandroVillafuerte"
                   );
                   handleCopyClopboard();
                 }}
               />
             </div>
             <div className="linkedin">
-              <AiFillGithub />
-              <a href="www.linkedin.com/in/leandrovillafuerte">
+              <SiLinkedin />
+              <Link to="https://www.linkedin.com/in/leandrovillafuerte" target="_blank">
                 www.linkedin.com/in/leandrovillafuerte
-              </a>
+              </Link>
               <MdContentCopy
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    "www.linkedin.com/in/leandrovillafuerte"
+                    "https://www.linkedin.com/in/leandrovillafuerte"
                   );
                   handleCopyClopboard();
                 }}
@@ -81,7 +82,7 @@ const About = () => {
             me via email at
             <div className="mail">
               <MdOutlineMail />
-              <a href="leandrovillafu@gmail.com">leandrovillafu@gmail.com</a>
+              <span href="leandrovillafu@gmail.com">leandrovillafu@gmail.com</span>
               <MdContentCopy
                 onClick={() => {
                   navigator.clipboard.writeText("leandrovillafu@gmail.com");

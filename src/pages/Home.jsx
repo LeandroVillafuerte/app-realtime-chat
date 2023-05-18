@@ -62,13 +62,15 @@ const Container = styled.div`
   align-items: center;
   .content {
     height: fit-content;
-    background-color: var(--page-container-color);
     border-radius: 2rem;
     padding: 3rem 5rem;
+    background-color: var(--page-container-color);
     @media screen and (max-width: 991px) {
-      height: 80vh;
-      padding: 3rem 3rem;
-      /* margin-bottom:3rem; */
+      height: fit-content;
+      padding: 0 1rem;
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+      margin-bottom:3rem;
       width:95%;
     }
     @media screen and (min-width: 768px) and (max-width: 991px) {
