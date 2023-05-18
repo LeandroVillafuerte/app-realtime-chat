@@ -106,6 +106,9 @@ const Container = styled.div`
     @media screen and (min-width: 768px) and (max-width: 991px) {
       padding-left: 0.5rem;
     }
+    @media screen and (max-width: 767px) {
+      padding-left: 0.5rem;
+    }
     .emoji-container {
       position: relative;
 
@@ -141,6 +144,7 @@ const Container = styled.div`
     border-radius: 2rem;
     display: flex;
     gap: 2rem;
+    align-items:center;
     @media screen and (max-width: 767px) {
       gap: 0.4rem;
     }
@@ -168,7 +172,8 @@ const Container = styled.div`
         ::placeholder {
           font-size: 0.8rem;
         }
-        font-size: 0.8rem;
+        font-size: 1rem;
+        height: 4rem;
       }
     }
     button {
@@ -186,6 +191,7 @@ const Container = styled.div`
       }
       @media screen and (max-width: 767px) {
         padding: 0.3rem 1rem;
+        height:2rem;
         svg {
           font-size: 1.5rem;
         }

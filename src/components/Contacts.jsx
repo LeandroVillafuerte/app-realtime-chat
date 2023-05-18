@@ -165,10 +165,14 @@ const Contacts = ({
                   onClick={() => changeCurrentChat(index, contact)}
                 >
                   <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt="avatar"
-                    />
+                    {contact.avatarImage ? (
+                      <img
+                        src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                        alt="avatar"
+                      />
+                    ) : (
+                      <Logo className="logo" />
+                    )}
                   </div>
                   <div className="username">
                     <h3>
@@ -256,7 +260,7 @@ const Container = styled.div`
           font-size: 2rem;
         }
         @media screen and (max-width: 767px) {
-            font-size: 1.5rem;
+          font-size: 1.5rem;
         }
       }
     }
@@ -333,6 +337,9 @@ const Container = styled.div`
         img {
           height: 3rem;
         }
+        svg {
+          height: 2rem;
+        }
       }
       .username {
         h3 {
@@ -359,7 +366,7 @@ const Container = styled.div`
     }
     @media screen and (max-width: 767px) {
       font-size: 1.5rem;
-      padding-bottom:6rem;
+      padding-bottom: 6rem;
     }
   }
 

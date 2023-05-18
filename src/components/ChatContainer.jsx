@@ -4,6 +4,7 @@ import ChatInput from "./ChatInput";
 import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../utils/apiRoutes";
 import Messages from "./Messages";
+import LogoSVG from "./LogoSVG";
 
 const ChatContainer = ({
   currentChat,
@@ -45,7 +46,7 @@ const ChatContainer = ({
       to: currentChat._id,
       from: currentUser._id,
       message: msg,
-      userFrom:currentUser.username
+      userFrom: currentUser.username,
     });
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: msg });
@@ -55,10 +56,11 @@ const ChatContainer = ({
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-receive", (data) => {
-        if(data.from === currentChat._id)setArrivalMessage({ fromSelf: false, message: data.message });
+        if (data.from === currentChat._id)
+          setArrivalMessage({ fromSelf: false, message: data.message });
       });
     }
-  }, [socket,currentChat]);
+  }, [socket, currentChat]);
 
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
@@ -74,10 +76,14 @@ const ChatContainer = ({
           <div className="chat-header">
             <div className="user-details">
               <div className="avatar">
-                <img
-                  src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                  alt="avatar"
-                />
+                {currentChat.avatarImage ? (
+                  <img
+                    src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+                    alt="avatar"
+                  />
+                ) : (
+                  <LogoSVG />
+                )}
               </div>
               <div className="username">
                 <h3>{currentChat.username}</h3>
@@ -89,7 +95,8 @@ const ChatContainer = ({
             scrollRef={scrollRef}
             currentChat={currentChat}
           />
-          <ChatInput className="chat-input"
+          <ChatInput
+            className="chat-input"
             mobile={mobile}
             currentChat={currentChat}
             handleSendMsg={handleSendMsg}
@@ -109,12 +116,12 @@ const Container = styled.div`
   gap: 0.1rem;
   overflow: hidden;
   @media screen and (max-width: 767px) {
-    grid-template-rows: 13% 70% 17%;
+    grid-template-rows: 13% 68% 19%;
     position: fixed;
     width: 100%;
     height: 108%;
-    .chat-input{
-      padding-bottom:2rem;
+    .chat-input {
+      padding-bottom: 2rem;
     }
   }
   @media screen and (min-width: 768px) and (max-width: 991px) {
@@ -127,12 +134,12 @@ const Container = styled.div`
     padding: 0 2rem;
     @media screen and (max-width: 767px) {
       padding: 0 1rem;
-      padding-bottom:1rem;
-      align-items:flex-end;
+      padding-bottom: 1rem;
+      align-items: flex-end;
     }
     @media screen and (min-width: 768px) and (max-width: 991px) {
       padding: 0 1.5rem;
-      align-items:flex-end;
+      align-items: flex-end;
     }
     .user-details {
       display: flex;
@@ -140,6 +147,12 @@ const Container = styled.div`
       gap: 1rem;
       .avatar {
         img {
+          height: 3rem;
+          @media screen and (min-width: 768px) and (max-width: 991px) {
+            height: 5rem;
+          }
+        }
+        svg {
           height: 3rem;
           @media screen and (min-width: 768px) and (max-width: 991px) {
             height: 5rem;
